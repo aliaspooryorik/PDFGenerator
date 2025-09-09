@@ -1,0 +1,45 @@
+{
+    "name": "PDFGenerator-dev",
+    "openBrowser": false,
+    "host": "127.0.0.1",
+    "port": 8080,
+    "stopsocket": 8081,
+    "debug": false,
+    "trace": false,
+    "openbrowserURL": "http://127.0.0.1:8080/pdfgenerator/health",
+    "trayicon": "/modules/pdfgenerator/icon.png",
+    "jvm": {
+        "heapSize": 1024,
+        "args": "-XX:+UseG1GC -XX:+UseStringDeduplication"
+    },
+    "web": {
+        "http": {
+            "enable": true,
+            "port": 8080
+        },
+        "ssl": {
+            "enable": false
+        },
+        "bindings": {
+            "default": "127.0.0.1:8080"
+        },
+        "directoryBrowsing": true,
+        "welcomeFiles": "index.cfm,index.html"
+    },
+    "app": {
+        "cfengine": "boxlang@1.5.0",
+        "logdir": "logs",
+        "libDirs": "lib",
+        "webConfigDir": "config",
+        "serverConfigDir": "config/server",
+        "webXML": "",
+        "sessionStorage": "memory",
+        "clientStorage": "cookie"
+    },
+    "runwar": {
+        "args": ""
+    },
+    "env": {
+        "JAVA_OPTS": "-Djava.awt.headless=true"
+    }
+}

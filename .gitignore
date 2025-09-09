@@ -2,9 +2,15 @@
 
 # OS and IDE files
 .DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 .vscode/
 .idea/
 *.sublime-*
+*.code-workspace
 
 # Temporary files
 *.tmp
@@ -15,33 +21,29 @@
 *.swo
 *~
 
-# ColdFusion/BoxLang specific
-WEB-INF/cfclasses/
-WEB-INF/cfform/
-application.log
-exception.log
-mail.log
-mailsent.log
-scheduler.log
-customtags/
-mappings/
+
+
+# CommandBox
+.box/
+.versionCache
 
 # Output directories
 pdf-output/
+output/
 temp/
 uploads/
+downloads/
 
 # Test output
 testbox/
 tests/results/
+test-results/
+coverage/
 
 # Build artifacts
 dist/
 build/
 
-# Dependencies (JAR files are managed via script)
-# Keep the lib directory structure but ignore large JARs in version control
-lib/*.jar
 
 # Keep these files for reference
 !lib/INSTALLATION.md
@@ -49,6 +51,10 @@ lib/*.jar
 
 # Environment specific
 .env
+.env.local
+.env.development
+.env.test
+.env.production
 config/local/
 
 # Backup files

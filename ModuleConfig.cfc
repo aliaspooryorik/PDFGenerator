@@ -11,7 +11,7 @@ component {
     // Module Properties
     this.title         = "PDFGenerator";
     this.author        = "John Whish";
-    this.webURL        = "https://github.com/jwhish/PDFGenerator";
+    this.webURL        = "https://github.com/aliaspooryorik/PDFGenerator";
     this.description   = "ColdBox module for converting HTML to PDF using OpenPDF library";
     this.version       = "0.1.0";
     this.cfmapping     = "pdfgenerator";
@@ -59,17 +59,6 @@ component {
                 logThresholdMB = 100
             }
         };
-
-        // Custom DSL for easy injection
-        binder.map( "PDFGenerator@pdfgenerator" )
-            .to( "pdfgenerator.services.PDFGeneratorService" );
-            
-        // Map models
-        binder.map( "PDFOptions@pdfgenerator" )
-            .to( "pdfgenerator.models.PDFOptions" );
-            
-        binder.map( "PDFResult@pdfgenerator" )
-            .to( "pdfgenerator.models.PDFResult" );
     }
 
     /**

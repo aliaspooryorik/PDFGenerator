@@ -1,0 +1,75 @@
+{
+    "name": "pdfgenerator",
+    "version": "0.1.0",
+    "author": "John Whish",
+    "location": "forgeboxStorage",
+    "homepage": "https://github.com/aliaspooryorik/PDFGenerator",
+    "documentation": "https://github.com/aliaspooryorik/PDFGenerator/blob/main/README.md",
+    "repository": {
+        "type": "git",
+        "URL": "https://github.com/aliaspooryorik/PDFGenerator"
+    },
+    "bugs": "https://github.com/aliaspooryorik/PDFGenerator/issues",
+    "slug": "pdfgenerator",
+    "shortDescription": "ColdBox module for converting HTML to PDF using OpenPDF library",
+    "description": "A comprehensive ColdBox module that converts HTML documents to PDF using the OpenPDF library. Features include support for large documents (500k+ elements), configurable page formats, custom margins, headers/footers with page numbers, RESTful API endpoints, and extensive configuration options. Designed for enterprise-scale PDF generation with robust error handling and performance optimization.",
+    "type": "modules",
+    "keywords": [
+        "coldbox",
+        "boxlang",
+        "pdf",
+        "html",
+        "conversion",
+        "openpdf",
+        "module",
+        "api",
+        "rest"
+    ],
+    "dependencies": {},
+    "devDependencies": {
+        "testbox": "^5.0.0"
+    },
+    "installPaths": {
+        "testbox": "testbox"
+    },
+    "scripts": {
+        "download:jars": "cd scripts && ./download-openpdf-jars.sh",
+        "test": "testbox run",
+        "test:watch": "testbox run --watch",
+        "format": "cfformat run ModuleConfig.cfc,models/**/*.cfc,services/**/*.cfc,handlers/**/*.cfc,tests/specs/**/*.cfc --overwrite",
+        "format:check": "cfformat check ModuleConfig.cfc,models/**/*.cfc,services/**/*.cfc,handlers/**/*.cfc,tests/specs/**/*.cfc --verbose",
+        "format:watch": "cfformat watch ModuleConfig.cfc,models/**/*.cfc,services/**/*.cfc,handlers/**/*.cfc,tests/specs/**/*.cfc"
+    },
+    "ignore": [
+        "**/.*",
+        "lib/*.jar",
+        "output",
+        "temp",
+        "testbox",
+        "tests/results"
+    ],
+    "engines": [
+        {
+            "type": "boxlang",
+            "version": ">=1.5.0"
+        },
+        {
+            "type": "lucee",
+            "version": ">=6.2.1"
+        },
+        {
+            "type": "adobe",
+            "version": ">=2025.0.0"
+        }
+    ],
+    "license": [
+        {
+            "type": "MIT",
+            "URL": "https://github.com/aliaspooryorik/PDFGenerator/blob/main/LICENSE"
+        }
+    ],
+    "contributors": [
+        "John Whish"
+    ],
+    "private": false
+}
