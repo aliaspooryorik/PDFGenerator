@@ -1,0 +1,19 @@
+{
+    "name": "PDFGenerator Test Harness",
+    "version": "1.0.0",
+    "slug": "pdfgenerator-test-harness",
+    "private": true,
+    "description": "Test harness for the PDFGenerator ColdBox module",
+    "dependencies": {
+        "testbox": "^5.0.0",
+        "coldbox": "^7.0.0"
+    },
+    "installPaths": {
+        "testbox": "testbox/",
+        "coldbox": "coldbox/"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "testbox run"
+    }
+}

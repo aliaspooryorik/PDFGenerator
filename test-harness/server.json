@@ -2,8 +2,7 @@
     "web": {
         "host": "127.0.0.1",
         "port": 8080,
-        "directoryBrowsing": true,
-        "webroot": "./test-harness"
+        "directoryBrowsing": true
     },
     "app": {
         "cfengine": "boxlang@1.0.0"
