@@ -1,0 +1,7 @@
+# OpenPDF Classpath Configuration
+# Generated: Tue  9 Sep 2025 21:46:52 BST
+# Version: 3.0.0
+
+# Add these paths to your BoxLang/CFML application classpath:
+/Users/johnwhish/projects/htmltopdf/PDFGenerator/lib/openpdf-3.0.0.jar
+/Users/johnwhish/projects/htmltopdf/PDFGenerator/lib/openpdf-html-3.0.0.jar
