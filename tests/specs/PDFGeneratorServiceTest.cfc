@@ -11,7 +11,7 @@ component extends="testbox.system.BaseSpec" {
 
     function beforeAll() {
         // Setup test environment
-        variables.pdfGenerator = new pdfgenerator.services.PDFGeneratorService();
+        variables.pdfGenerator = new PDFGeneratorService();
         variables.testOutputDir = getTempDirectory() & "/pdfgenerator-tests";
         
         // Create test output directory

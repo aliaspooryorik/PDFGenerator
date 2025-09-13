@@ -31,7 +31,7 @@ component singleton {
     // Dependencies
     property name="logBox" inject="logbox:logger:{this}";
     property name="moduleSettings" inject="coldbox:moduleSettings:pdfgenerator";
-    property name="openPDFWrapper" inject="pdfgenerator.services.OpenPDFWrapper";
+    property name="openPDFWrapper" inject="OpenPDFWrapper";
 
     /**
      * Constructor

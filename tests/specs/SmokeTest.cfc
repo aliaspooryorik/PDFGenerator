@@ -82,7 +82,7 @@ component extends="testbox.system.BaseSpec" {
                 it("should instantiate PDFGeneratorService", function() {
                     // Try to create the service - this will test if dependencies inject properly
                     try {
-                        var service = new pdfgenerator.services.PDFGeneratorService();
+                        var service = new PDFGeneratorService();
                         expect(service).toBeComponent();
                         expect(service).toHaveKey("htmlToPDFBinary");
                         expect(service).toHaveKey("htmlToPDFFile");
@@ -94,7 +94,7 @@ component extends="testbox.system.BaseSpec" {
                 
                 it("should instantiate OpenPDFWrapper", function() {
                     try {
-                        var wrapper = new pdfgenerator.services.OpenPDFWrapper();
+                        var wrapper = new OpenPDFWrapper();
                         expect(wrapper).toBeComponent();
                         expect(wrapper).toHaveKey("isAvailable");
                     } catch (any e) {

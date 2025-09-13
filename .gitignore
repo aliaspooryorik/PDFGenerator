@@ -54,6 +54,8 @@ testbox/
 tests/results/
 test-results/
 coverage/
+test-harness/coldbox/
+test-harness/testbox/
 
 # Build artifacts
 dist/

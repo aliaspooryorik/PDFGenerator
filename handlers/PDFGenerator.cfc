@@ -10,7 +10,7 @@
 component extends="coldbox.system.EventHandler" {
 
     // Dependencies
-    property name="pdfGeneratorService" inject="pdfgenerator.services.PDFGeneratorService";
+    property name="pdfGeneratorService" inject="PDFGeneratorService";
     property name="logBox" inject="logbox:logger:{this}";
 
     /**
