@@ -6,6 +6,16 @@ component {
 	// Index
 	any function index( event, rc, prc ){
 		prc.welcomeMessage = "Welcome to the PDFGenerator Test Harness!";
+		// Get loaded modules from ColdBox
+		prc.loadedModules = [];
+		try {
+			var modules = controller.getModuleService().getLoadedModules();
+			for ( var moduleName in modules ) {
+				prc.loadedModules.append( moduleName );
+			}
+		} catch ( any e ) {
+			prc.loadedModules = ["Error retrieving modules: " & e.message];
+		}
 		event.setView( "main/index" );
 	}
 

@@ -3,6 +3,16 @@
     <div class="col-md-12">
         <h1>PDFGenerator Test Harness</h1>
         <p class="lead">#prc.welcomeMessage#</p>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Loaded Modules</h5>
+                <ul>
+                    <cfloop array="#prc.loadedModules#" index="moduleName">
+                        <li>#moduleName#</li>
+                    </cfloop>
+                </ul>
+            </div>
+        </div>
         
         <div class="row mt-4">
             <div class="col-md-4">
