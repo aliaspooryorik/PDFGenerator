@@ -66,16 +66,15 @@ component {
 	 * Test service health check
 	 */
 	function testHealthCheck( event, rc, prc ){
+		var healthResult = {};
 		try {
 			var pdfGenerator = getInstance( "PDFGeneratorService@PDFGenerator" );
-			var healthResult = pdfGenerator.healthCheck();
-			
-			prc.healthResult = healthResult;
-			event.setView( "main/health" );
+			healthResult = pdfGenerator.healthCheck();
 		} catch ( any e ) {
-			prc.error = e;
-			event.setView( "main/error" );
+			healthResult = { success: false, message: "Exception: " & e.message };
 		}
+		prc.healthResult = healthResult;
+		event.setView( "main/health" );
 	}
 
 	// Run on first init

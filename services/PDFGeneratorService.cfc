@@ -1,3 +1,22 @@
+    /**
+     * Health check - returns struct with health status and details
+     */
+    public struct function healthCheck() {
+        var result = {};
+        try {
+            if ( isHealthy() ) {
+                result["success"] = true;
+                result["message"] = "PDFGenerator is healthy.";
+            } else {
+                result["success"] = false;
+                result["message"] = "PDFGenerator failed health check.";
+            }
+        } catch ( any e ) {
+            result["success"] = false;
+            result["message"] = "Exception during health check: " & e.message;
+        }
+        return result;
+    }
 /**
  * PDFGeneratorService - Main service for HTML to PDF conversion
  * 
