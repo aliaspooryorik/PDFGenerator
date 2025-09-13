@@ -1,0 +1,12 @@
+{
+    "runtime": {
+        "classPath": [
+            "../lib/openpdf-3.0.0.jar",
+            "../lib/openpdf-html-3.0.0.jar"
+        ]
+    },
+    "boxlang": {
+        "compileInMemory": true,
+        "debugMode": true
+    }
+}

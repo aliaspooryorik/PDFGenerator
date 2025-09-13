@@ -16,6 +16,26 @@ A ColdBox module for converting HTML documents to PDF using the OpenPDF library.
 - **Health Monitoring**: Built-in health checks and performance metrics
 - **ColdBox Integration**: Full dependency injection and logging support
 
+## Project Status
+
+**Last Updated: 2025-09-13**
+
+This project is currently in the initial development phase. The foundational structure has been laid out, but the core functionality is not yet complete or verified.
+
+Our immediate priority is to establish a robust testing framework to enable a Test-Driven Development (TDD) workflow. No new features will be implemented until a reliable test suite is in place to validate the core PDF generation logic. This approach will ensure high-quality, maintainable code as the project progresses.
+
+For more details on our development strategy, please see the [Development Guide](documentation/development-guide.md).
+
+## Troubleshooting & Known Issues
+
+**BoxLang Version:** The project is configured to always use the latest stable BoxLang by specifying `"boxlang"` in `server.json`. This ensures you benefit from the newest features and fixes automatically.
+**ColdBox Compatibility:** The `bx-compat-cfml` module must be installed for ColdBox to run correctly on BoxLang. If you see metadata or struct key errors, install it with `box install bx-compat-cfml`.
+**TestBox CLI Error:** Running tests with `box testbox run` may fail due to a known compatibility issue (`Can't cast Complex Object Type Struct to String`).
+**Workaround:** Start the server (`box server start --debug --verbose`) and run tests in your browser at `http://localhost:[port]/tests/runner.cfm`.
+**Debugging:** Always use the `--debug --verbose` flags for detailed error output during development.
+**Logs:** Check the server logs for module loading errors and other issues.
+**Common Error:** If you see `The key [NAME] was not found in the struct. Valid keys are ([])`, it usually means ColdBox is missing bx-compat-cfml or a handler inheritance/config issue. Install the module and restart the server.
+
 ## Requirements
 
 - **BoxLang**: Compatible with BoxLang runtime

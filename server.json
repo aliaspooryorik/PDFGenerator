@@ -1,14 +1,16 @@
 {
-    "web": {
-        "host": "127.0.0.1",
-        "port": 8080,
-        "directoryBrowsing": true,
-        "webroot": "./test-harness"
+    "web":{
+        "host":"127.0.0.1",
+        "port":8080,
+        "directoryBrowsing":true,
+        "webroot":"./test-harness"
     },
-    "app": {
-        "cfengine": "boxlang@1.0.0"
+    "app":{
+        "cfengine":"boxlang"
     },
-    "runwar": {
-        "args": "--debug"
+    "runwar":{
+        "options":{
+            "debug":true
+        }
     }
 }

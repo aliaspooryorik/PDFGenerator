@@ -2,6 +2,7 @@
 
 # OS and IDE files
 .DS_Store
+.DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
@@ -21,10 +22,24 @@ Thumbs.db
 *.swo
 *~
 
-
+# ColdFusion/BoxLang specific
+WEB-INF/cfclasses/
+WEB-INF/cfform/
+WEB-INF/logs/
+application.log
+exception.log
+mail.log
+mailsent.log
+scheduler.log
+customtags/
+mappings/
+cfcache/
+cfusion-ear/
+cfusion-war/
 
 # CommandBox
 .box/
+server.json
 .versionCache
 
 # Output directories
@@ -43,11 +58,21 @@ coverage/
 # Build artifacts
 dist/
 build/
+artifacts/
 
+# Dependencies (JAR files are managed via script)
+# Keep the lib directory structure but ignore large JARs in version control
+lib/*.jar
 
 # Keep these files for reference
 !lib/INSTALLATION.md
 !lib/classpath.txt
+
+# Node.js (if using any build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Environment specific
 .env
@@ -56,6 +81,7 @@ build/
 .env.test
 .env.production
 config/local/
+Application-local.cfc
 
 # Backup files
 *.orig

@@ -59,10 +59,10 @@ component {
 			},
 			// Root Logger
 			root : { levelmax : "DEBUG", appenders : "*" },
-			// Implicit Level Categories
+			// Explicit Level Categories (structs, not arrays)
 			categories : {
-				info : [ "coldbox.system" ],
-				debug : [ "PDFGenerator.*" ]
+				"coldbox.system" : { levelmax : "INFO", appenders : "*" },
+				"PDFGenerator"   : { levelmax : "DEBUG", appenders : "*" }
 			}
 		};
 

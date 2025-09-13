@@ -1,13 +1,18 @@
 {
+    "name": "PDFGenerator-TestHarness",
     "web": {
         "host": "127.0.0.1",
         "port": 8080,
         "directoryBrowsing": true
     },
     "app": {
-        "cfengine": "boxlang@1.0.0"
+        "cfengine": "boxlang",
+        "serverConfigFile": "server-boxlang.json"
     },
     "runwar": {
         "args": "--debug"
+    },
+    "jvm": {
+        "heapSize": "512m"
     }
 }
