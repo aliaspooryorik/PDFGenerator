@@ -77,13 +77,8 @@ component {
 	 */
 	function testHealthCheck( event, rc, prc ){
 		var healthResult = {};
-		try {
-			var pdfGenerator = getInstance( "PDFGeneratorService@PDFGenerator" );
-			healthResult = pdfGenerator.healthCheck();
-		} catch ( any e ) {
-			healthResult = { success: false, message: "Exception: " & e.message };
-		}
-		prc.healthResult = healthResult;
+		var pdfGenerator = getInstance( "PDFGeneratorService@PDFGenerator" );
+		prc.healthResult = pdfGenerator.healthCheck();
 		event.setView( "main/health" );
 	}
 

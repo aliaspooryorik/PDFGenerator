@@ -54,17 +54,16 @@ testbox/
 tests/results/
 test-results/
 coverage/
+
+# dependancies
 test-harness/coldbox/
 test-harness/testbox/
+modules/cbjavaloader/
 
 # Build artifacts
 dist/
 build/
 artifacts/
-
-# Dependencies (JAR files are managed via script)
-# Keep the lib directory structure but ignore large JARs in version control
-lib/*.jar
 
 # Keep these files for reference
 !lib/INSTALLATION.md

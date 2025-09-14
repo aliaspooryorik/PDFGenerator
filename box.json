@@ -25,12 +25,15 @@
         "api",
         "rest"
     ],
-    "dependencies":{},
+    "dependencies":{
+        "cbjavaloader":"^2.3.0+2"
+    },
     "devDependencies":{
         "testbox":"^5.0.0"
     },
     "installPaths":{
-        "testbox":"testbox/"
+        "testbox":"testbox/",
+        "cbjavaloader":"modules/cbjavaloader/"
     },
     "scripts":{
         "start:dev":"server start",

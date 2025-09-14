@@ -1,22 +1,3 @@
-    /**
-     * Health check - returns struct with health status and details
-     */
-    public struct function healthCheck() {
-        var result = {};
-        try {
-            if ( isHealthy() ) {
-                result["success"] = true;
-                result["message"] = "PDFGenerator is healthy.";
-            } else {
-                result["success"] = false;
-                result["message"] = "PDFGenerator failed health check.";
-            }
-        } catch ( any e ) {
-            result["success"] = false;
-            result["message"] = "Exception during health check: " & e.message;
-        }
-        return result;
-    }
 /**
  * PDFGeneratorService - Main service for HTML to PDF conversion
  * 
@@ -31,7 +12,7 @@ component singleton {
     // Dependencies
     property name="logBox" inject="logbox:logger:{this}";
     property name="moduleSettings" inject="coldbox:moduleSettings:pdfgenerator";
-    property name="openPDFWrapper" inject="OpenPDFWrapper";
+    property name="openPDFWrapper" inject="OpenPDFWrapper@pdfgenerator";
 
     /**
      * Constructor
@@ -51,58 +32,46 @@ component singleton {
         var startTime = getTickCount();
         var result = new pdfgenerator.models.PDFResult();
         
-        try {
-            // Use provided options or create default
-            if ( isNull( arguments.options ) ) {
-                arguments.options = createDefaultPDFOptions();
-            }
-            
-            // Validate options
-            if ( !arguments.options.isValid() ) {
-                return result.setError( 
-                    "Invalid PDF options provided",
-                    "PDFOptions validation failed: #arguments.options.toString()#"
-                );
-            }
-            
-            // Log operation start
-            if ( logBox.canDebug() ) {
-                logBox.debug( "Starting HTML to PDF binary conversion. Options: #arguments.options.toString()#" );
-            }
-            
-            // Process placeholders in headers/footers
-            var processedOptions = processPlaceholders( arguments.options, arguments.html );
-            
-            // Generate PDF binary data
-            var binaryData = openPDFWrapper.generatePDFBinary( arguments.html, processedOptions );
-            
-            // Calculate metrics
-            var generationTime = getTickCount() - startTime;
-            var fileSize = arrayLen( binaryData );
-            
-            // Build successful result
-            result.setSuccess( true )
-                  .setBinaryData( binaryData )
-                  .setFileSize( fileSize )
-                  .setGenerationTime( generationTime );
-            
-            // Log success
-            if ( logBox.canInfo() ) {
-                logBox.info( "PDF binary generation completed successfully. " & result.toString() );
-            }
-            
-            return result;
-            
-        } catch ( any e ) {
-            var generationTime = getTickCount() - startTime;
-            
-            logBox.error( "PDF binary generation failed", e );
-            
-            return result.setError( 
-                "PDFGenerator.ConversionException: #e.message#",
-                "Error detail: #e.detail# | Stack trace: #e.stackTrace#"
-            ).setGenerationTime( generationTime );
-        }
+		// Use provided options or create default
+		if ( isNull( arguments.options ) ) {
+			arguments.options = createDefaultPDFOptions();
+		}
+		
+		// Validate options
+		if ( !arguments.options.isValid() ) {
+			return result.setError( 
+				"Invalid PDF options provided",
+				"PDFOptions validation failed: #arguments.options.toString()#"
+			);
+		}
+		
+		// Log operation start
+		if ( logBox.canDebug() ) {
+			logBox.debug( "Starting HTML to PDF binary conversion. Options: #arguments.options.toString()#" );
+		}
+		
+		// Process placeholders in headers/footers
+		var processedOptions = processPlaceholders( arguments.options, arguments.html );
+		
+		// Generate PDF binary data
+		var binaryData = openPDFWrapper.generatePDFBinary( arguments.html, processedOptions );
+		
+		// Calculate metrics
+		var generationTime = getTickCount() - startTime;
+		var fileSize = arrayLen( binaryData );
+		
+		// Build successful result
+		result.setSuccess( true )
+				.setBinaryData( binaryData )
+				.setFileSize( fileSize )
+				.setGenerationTime( generationTime );
+		
+		// Log success
+		if ( logBox.canInfo() ) {
+			logBox.info( "PDF binary generation completed successfully. " & result.toString() );
+		}
+		
+		return result;
     }
 
     /**
@@ -116,66 +85,54 @@ component singleton {
         var startTime = getTickCount();
         var result = new pdfgenerator.models.PDFResult();
         
-        try {
-            // Use provided options or create default
-            if ( isNull( arguments.options ) ) {
-                arguments.options = createDefaultPDFOptions();
-            }
-            
-            // Validate options
-            if ( !arguments.options.isValid() ) {
-                return result.setError( 
-                    "Invalid PDF options provided",
-                    "PDFOptions validation failed: #arguments.options.toString()#"
-                );
-            }
-            
-            // Generate output file path
-            var filePath = generateOutputFilePath( arguments.options );
-            
-            // Log operation start
-            if ( logBox.canDebug() ) {
-                logBox.debug( "Starting HTML to PDF file conversion. Target: #filePath# | Options: #arguments.options.toString()#" );
-            }
-            
-            // Process placeholders in headers/footers
-            var processedOptions = processPlaceholders( arguments.options, arguments.html );
-            
-            // Generate PDF file
-            openPDFWrapper.generatePDFFile( arguments.html, processedOptions, filePath );
-            
-            // Calculate metrics
-            var generationTime = getTickCount() - startTime;
-            var fileSize = 0;
-            
-            if ( fileExists( filePath ) ) {
-                var fileInfo = getFileInfo( filePath );
-                fileSize = fileInfo.size;
-            }
-            
-            // Build successful result
-            result.setSuccess( true )
-                  .setFilePath( filePath )
-                  .setFileSize( fileSize )
-                  .setGenerationTime( generationTime );
-            
-            // Log success
-            if ( logBox.canInfo() ) {
-                logBox.info( "PDF file generation completed successfully. " & result.toString() );
-            }
-            
-            return result;
-            
-        } catch ( any e ) {
-            var generationTime = getTickCount() - startTime;
-            
-            logBox.error( "PDF file generation failed", e );
-            
-            return result.setError( 
-                "PDFGenerator.ConversionException: #e.message#",
-                "Error detail: #e.detail# | Stack trace: #e.stackTrace#"
-            ).setGenerationTime( generationTime );
-        }
+		// Use provided options or create default
+		if ( isNull( arguments.options ) ) {
+			arguments.options = createDefaultPDFOptions();
+		}
+		
+		// Validate options
+		if ( !arguments.options.isValid() ) {
+			return result.setError( 
+				"Invalid PDF options provided",
+				"PDFOptions validation failed: #arguments.options.toString()#"
+			);
+		}
+		
+		// Generate output file path
+		var filePath = generateOutputFilePath( arguments.options );
+		
+		// Log operation start
+		if ( logBox.canDebug() ) {
+			logBox.debug( "Starting HTML to PDF file conversion. Target: #filePath# | Options: #arguments.options.toString()#" );
+		}
+		
+		// Process placeholders in headers/footers
+		var processedOptions = processPlaceholders( arguments.options, arguments.html );
+		
+		// Generate PDF file
+		openPDFWrapper.generatePDFFile( arguments.html, processedOptions, filePath );
+		
+		// Calculate metrics
+		var generationTime = getTickCount() - startTime;
+		var fileSize = 0;
+		
+		if ( fileExists( filePath ) ) {
+			var fileInfo = getFileInfo( filePath );
+			fileSize = fileInfo.size;
+		}
+		
+		// Build successful result
+		result.setSuccess( true )
+				.setFilePath( filePath )
+				.setFileSize( fileSize )
+				.setGenerationTime( generationTime );
+		
+		// Log success
+		if ( logBox.canInfo() ) {
+			logBox.info( "PDF file generation completed successfully. " & result.toString() );
+		}
+		
+		return result;
     }
 
     /**
@@ -184,20 +141,29 @@ component singleton {
      * @return Boolean indicating if the service is healthy
      */
     public boolean function isHealthy() {
-        try {
-            // Simple HTML test
-            var testHTML = "<html><body><h1>Health Check</h1><p>PDF Generator is working!</p></body></html>";
-            var options = createDefaultPDFOptions();
-            
-            // Try to generate a small PDF
-            var result = htmlToPDFBinary( testHTML, options );
-            
-            return result.isSuccess() && result.getFileSize() > 0;
-            
-        } catch ( any e ) {
-            logBox.error( "PDF Generator health check failed", e );
-            return false;
-        }
+		// Simple HTML test
+		var testHTML = "<html><body><h1>Health Check</h1><p>PDF Generator is working!</p></body></html>";
+		var options = createDefaultPDFOptions();
+		
+		// Try to generate a small PDF
+		var result = htmlToPDFBinary( testHTML, options );
+		
+		return result.isSuccess() && result.getFileSize() > 0;
+    }
+
+	 /**
+     * Health check - returns struct with health status and details
+     */
+    public struct function healthCheck() {
+        var result = {};
+		if ( isHealthy() ) {
+			result["success"] = true;
+			result["message"] = "PDFGenerator is healthy.";
+		} else {
+			result["success"] = false;
+			result["message"] = "PDFGenerator failed health check.";
+		}
+        return result;
     }
 
     /**

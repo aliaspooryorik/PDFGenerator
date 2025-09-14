@@ -17,7 +17,7 @@ component {
     this.cfmapping     = "pdfgenerator";
     this.autoMapModels = true;
     this.modelNamespace = "pdfgenerator";
-    this.dependencies   = [];
+    this.dependencies   = [ "cbjavaloader" ];
 
     /**
      * Configure the module
@@ -78,16 +78,18 @@ component {
                 "PDFGenerator module loaded successfully. Output directory: #moduleSettings.defaultOutputPath#" 
             );
         }
+
+        // Setup JavaLoader to load OpenPDF JARs from /lib
+        controller
+			.getWireBox()
+			.getInstance( "loader@cbjavaloader" )
+			.appendPaths( variables.modulePath & "/lib" );
     }
 
     /**
      * Fired when the module is unregistered and unloaded
      */
     function onUnload() {
-        // Cleanup any Java objects to prevent memory leaks
-        if ( controller.getLogBox().getRootLogger().canInfo() ) {
-            controller.getLogBox().getRootLogger().info( "PDFGenerator module unloaded." );
-        }
     }
 
 }
