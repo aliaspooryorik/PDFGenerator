@@ -259,9 +259,9 @@ it("should load OpenPDF classes successfully", function() {
 });
 
 // Test 2: Basic HTML conversion  
-it("should convert simple HTML to PDF binary", function() {
+it("should convert simple HTML to PDF base64", function() {
     var html = "<html><body><h1>Test</h1></body></html>";
-    var result = pdfGenerator.htmlToPDFBinary(html);
+    var result = pdfGenerator.generatePDFBase64(html);
     expect(result.isSuccess()).toBeTrue();
     expect(result.getFileSize()).toBeGT(0);
 });

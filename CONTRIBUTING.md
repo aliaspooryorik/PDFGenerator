@@ -191,7 +191,7 @@ Example:
  * @return PDFResult object with binary data and metadata
  * 
  * @example
- * var result = pdfGenerator.htmlToPDFBinary(
+* var result = pdfGenerator.generatePDFBase64(
  *     "<html><body><h1>Hello PDF</h1></body></html>",
  *     new PDFOptions().setOrientation("landscape")
  * );

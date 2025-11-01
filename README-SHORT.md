@@ -17,7 +17,7 @@ box install pdfgenerator
 box run-script download:jars
 
 # Basic usage
-var result = pdfGenerator.htmlToPDFBinary( "<html><body><h1>Hello PDF!</h1></body></html>" );
+var result = pdfGenerator.generatePDFBase64( "<html><body><h1>Hello PDF!</h1></body></html>" );
 ```
 
 ## Features
@@ -64,10 +64,10 @@ property name="pdfGenerator" inject="pdfgenerator.services.PDFGeneratorService";
 
 // Simple HTML to PDF
 var html = "<html><body><h1>My Document</h1><p>Content here...</p></body></html>";
-var result = pdfGenerator.htmlToPDFBinary( html );
+var result = pdfGenerator.generatePDFBase64( html );
 
 if ( result.isSuccess() ) {
-    event.renderData( type="binary", data=result.getBinaryData() );
+  event.renderData( type="pdf", data=result.getBinaryData() );
 }
 ```
 

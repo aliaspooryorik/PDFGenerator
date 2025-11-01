@@ -768,7 +768,7 @@ PDFGenerator/
 ### Updated API Method Signatures
 ```javascript
 // Main service methods - return detailed result objects
-public PDFResult function htmlToPDFBinary(required string html, PDFOptions options)
+public PDFResult function generatePDFBase64(required string html, PDFOptions options)
 public PDFResult function htmlToPDFFile(required string html, PDFOptions options)
 
 // Health check

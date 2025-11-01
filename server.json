@@ -12,5 +12,8 @@
         "options":{
             "debug":true
         }
+    },
+    "scripts":{
+        "onServerInitialInstall":"install bx-compat-cfml"
     }
 }

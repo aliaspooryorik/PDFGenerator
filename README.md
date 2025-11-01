@@ -116,7 +116,7 @@ var html = "
 ";
 
 // Generate PDF binary
-var result = pdfGenerator.htmlToPDFBinary( html );
+var result = pdfGenerator.generatePDFBase64( html );
 
 if ( result.isSuccess() ) {
     // Return as download
@@ -143,7 +143,7 @@ var options = new pdfgenerator.models.PDFOptions()
                .setFooter( "Generated on #dateFormat( now(), 'mmmm dd, yyyy' )#" );
 
 // Generate PDF file
-var result = pdfGenerator.htmlToPDFFile( html, options );
+var result = pdfGenerator.generatePDFBase64( html, options );
 
 if ( result.isSuccess() ) {
     writeOutput( "PDF saved to: " & result.getFilePath() );
@@ -225,7 +225,7 @@ moduleSettings = {
             expandPath("./fonts/times.ttf")
         ],
         
-        // Default PDF options
+        var result = pdfGenerator.generatePDFBase64( html );
         defaultPDFOptions = {
             orientation = "portrait",
             pageSize = "A4",
