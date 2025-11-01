@@ -50,11 +50,8 @@ component singleton {
             logBox.debug('Starting HTML to PDF binary conversion. Options: #arguments.options.toString()#');
         }
 
-        // Process placeholders in headers/footers
-        var processedOptions = processPlaceholders(arguments.options, arguments.html);
-
         // Generate PDF as base64 string (OpenPDFWrapper now returns base64)
-        var base64String = openPDFWrapper.generatePDFBase64(arguments.html, processedOptions);
+        var base64String = openPDFWrapper.generatePDFBase64(arguments.html, arguments.options);
 
         // Calculate metrics
         var generationTime = getTickCount() - startTime;
@@ -81,7 +78,7 @@ component singleton {
      * @html The HTML content to convert
      * @options PDFOptions object with configuration (optional)
      * @return PDFResult object with file path and metadata
-     */
+     
     public PDFResult function htmlToPDFFile(required string html, PDFOptions options) {
         var startTime = getTickCount();
         var result = new pdfgenerator.models.PDFResult();
@@ -106,12 +103,9 @@ component singleton {
         if (logBox.canDebug()) {
             logBox.debug('Starting HTML to PDF file conversion. Target: #filePath# | Options: #arguments.options.toString()#');
         }
-
-        // Process placeholders in headers/footers
-        var processedOptions = processPlaceholders(arguments.options, arguments.html);
-
+		
         // Generate PDF file
-        openPDFWrapper.generatePDFFile(arguments.html, processedOptions, filePath);
+        openPDFWrapper.generatePDFFile(arguments.html, arguments.options, filePath);
 
         // Calculate metrics
         var generationTime = getTickCount() - startTime;
@@ -136,6 +130,7 @@ component singleton {
 
         return result;
     }
+		*/
 
     /**
      * Health check - verify PDF generation capability
@@ -209,21 +204,6 @@ component singleton {
         var filename = createUUID() & '.pdf';
 
         return outputDir & '/' & filename;
-    }
-
-    /**
-     * Process page number placeholders in headers and footers
-     */
-    private PDFOptions function processPlaceholders(required PDFOptions options, required string html) {
-        // Note: Actual page number replacement will be handled by OpenPDF
-        // This method can be extended for pre-processing if needed
-
-        var processedOptions = arguments.options;
-
-        // For now, just return the options as-is
-        // OpenPDF will handle {currentpage} and {totalpages} placeholders
-
-        return processedOptions;
     }
 
 }

@@ -32,12 +32,9 @@ component {
             event.setHTTPHeader(name = 'Content-Type', value = 'application/pdf');
             event.setHTTPHeader(name = 'Content-Disposition', value = 'attachment; filename=test-#getTickCount()#.pdf');
 
-            // Stream normalized binary
             event.renderData(
                 data = toBinary(result.getBase64String()),
-                type = 'pdf',
-                contentType = 'application/pdf',
-                isBinary = true
+                type = 'pdf'
             );
         } else {
             prc.error = result.getError();
@@ -49,32 +46,24 @@ component {
      * Test HTML to PDF conversion with custom options
      */
     function testAdvancedConversion(event, rc, prc) {
-        try {
-            var pdfGenerator = getInstance('PDFGeneratorService@PDFGenerator');
-            var pdfOptions = getInstance('PDFOptions@PDFGenerator')
-                .setOrientation('landscape')
-                .setPageSize('A4')
-                .setMargins(20, 20, 20, 20);
+		var pdfOptions = getInstance('PDFOptions@PDFGenerator')
+			.setOrientation('landscape')
+			.setPageSize('A5')
+			.setMargins(20, 20, 20, 20);
 
-            var html = '<html><body><h1>Advanced Test PDF</h1><p>This is a landscape A4 PDF with custom margins.</p></body></html>';
+		var html = '<html><head><style>@page { size: A5 landscape; } body { margin: 10mm 50mm; }</style></head><body><h1>Advanced Test PDF</h1><p>This is a landscape A5 PDF with custom margins.</p><p>Generated #dateTimeFormat(now(), 'iso')#</p></body></html>';
+		var result = PDFGeneratorService.htmlToPDFResult(html, pdfOptions);
 
-            var result = pdfGenerator.generatePDFBase64(html, pdfOptions);
+        if (result.getSuccess()) {
+            event.setHTTPHeader(name = 'Content-Type', value = 'application/pdf');
+            event.setHTTPHeader(name = 'Content-Disposition', value = 'attachment; filename=test-#getTickCount()#.pdf');
 
-            if (result.getSuccess()) {
-                event.setHTTPHeader(name = 'Content-Type', value = 'application/pdf');
-                event.setHTTPHeader(name = 'Content-Disposition', value = 'attachment; filename=advanced-test.pdf');
-                event.renderData(
-                    data = toBinary(result.getBase64String()),
-                    type = 'pdf',
-                    contentType = 'application/pdf',
-                    isBinary = true
-                );
-            } else {
-                prc.error = result.getError();
-                event.setView('main/error');
-            }
-        } catch (any e) {
-            prc.error = e;
+            event.renderData(
+                data = toBinary(result.getBase64String()),
+                type = 'pdf'
+            );
+        } else {
+            prc.error = result.getError();
             event.setView('main/error');
         }
     }
