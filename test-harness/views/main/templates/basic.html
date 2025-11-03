@@ -1,0 +1,24 @@
+<html>
+<head>
+	<style>
+		@page {
+			size: a4;
+			@bottom-center {
+				content: "Page " counter(page) " of " counter(pages);
+				font-family: 'Courier New', Courier, monospace;
+				color: green;
+			}
+		}
+		body {
+			font-family: Arial, sans-serif;
+			color: darkblue;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Hello, PDF!</h1>
+	<p>This is a basic PDF test.</p>
+</body>
+
+</html>

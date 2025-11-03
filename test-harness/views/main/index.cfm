@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Basic PDF Test</h5>
                         <p class="card-text">Test basic HTML to PDF conversion with default settings.</p>
-                        <a href="#event.buildLink('main.testBasicConversion')#" class="btn btn-primary">Test Basic Conversion</a>
+                        <a href="#event.buildLink('main/playground?template=basic')#" class="btn btn-primary">Test Basic Conversion</a>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Advanced PDF Test</h5>
                         <p class="card-text">Test HTML to PDF conversion with custom options (landscape, margins).</p>
-                        <a href="#event.buildLink('main.testAdvancedConversion')#" class="btn btn-success">Test Advanced Conversion</a>
+                        <a href="#event.buildLink('main/playground?template=advanced')#" class="btn btn-success">Test Advanced Conversion</a>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Health Check</h5>
                         <p class="card-text">Check if the PDF service is properly configured and working.</p>
-                        <a href="#event.buildLink('main.testHealthCheck')#" class="btn btn-info">Run Health Check</a>
+                        <a href="#event.buildLink('main/playground?template=health')#" class="btn btn-info">Run Health Check</a>
                     </div>
                 </div>
             </div>
