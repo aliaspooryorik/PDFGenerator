@@ -215,8 +215,11 @@ component singleton {
      * Parse HTML content and add to PDF document
      */
     private void function parseHTMLContent(required any outputStream, required string html, required PDFOptions options) {
-        // Use ITextRenderer to convert HTML to PDF
+        // Register fonts before rendering
         var renderer = javaloader.create('org.openpdf.pdf.ITextRenderer').init();
+        if (options.getEmbedFonts()) {
+			embedFonts(renderer)
+        }
         renderer.setDocumentFromString(arguments.html);
         renderer.layout();
         renderer.createPDF(arguments.outputStream);
@@ -236,22 +239,17 @@ component singleton {
     }
 
     /**
-     * Configure font embedding for better Unicode support
+     * Scan /fonts directory and embed fonts for better Unicode support
      */
-    private void function configureFontEmbedding(required any htmlWorker) {
-        try {
-            // Set up font paths for embedding
-            var fontPaths = moduleSettings.fontPaths ?: [];
-
-            // This is a placeholder for font embedding configuration
-            // Actual implementation would register fonts with FontFactory
-
-            if (logBox.canDebug()) {
-                logBox.debug('Font embedding configuration applied');
-            }
-        } catch (any e) {
-            logBox.warn('Font embedding configuration failed: #e.message#');
-        }
+    private void function embedFonts(required any renderer) {
+		var fontDir = moduleSettings.fontsPath;
+		var fontFiles = directoryList(fontDir, false, "path", "*.ttf|*.otf");
+		for (var fontPath in fontFiles) {
+			renderer.getFontResolver().addFont(fontPath, "Identity-H", true);
+			if (logBox.canDebug()) {
+				logBox.debug('Registered font with renderer for embedding: ' & fontPath);
+			}
+		}
     }
 
     /**

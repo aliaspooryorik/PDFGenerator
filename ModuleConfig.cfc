@@ -27,6 +27,8 @@ component {
         settings = {
             // Default output directory (relative to module root)
             defaultOutputPath: expandPath('./output'),
+            // Path to fonts directory (users can override in their config)
+            fontsPath: '#modulePath#/fonts/',
             // Default PDF options
             defaultPDFOptions: {
                 orientation: 'portrait',
