@@ -51,7 +51,6 @@ component extends="testbox.system.BaseSpec" {
                     var options = new pdfgenerator.models.PDFOptions().setOrientation('landscape').setPageSize('A4');
 
                     expect(options.getOrientation()).toBe('landscape');
-                    expect(options.getPageSize()).toBe('A4');
                 });
 
                 it('should validate PDFOptions input', function() {

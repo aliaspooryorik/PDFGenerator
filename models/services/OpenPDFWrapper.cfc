@@ -58,40 +58,6 @@ component singleton {
     }
 
     /**
-     * Generate PDF file from HTML
-     *
-     * @html The HTML content to convert
-     * @options PDFOptions object with configuration
-     * @filePath Output file path for the PDF
-     */
-    public void function generatePDFFile(required string html, required PDFOptions options, required string filePath) {
-        if (!variables.initialized) {
-            throw(type = 'PDFGenerator.NotInitializedException', message = 'OpenPDF wrapper is not initialized');
-        }
-
-        var fileOutputStream = '';
-        try {
-            fileOutputStream = javaloader.create('java.io.FileOutputStream').init(arguments.filePath);
-            parseHTMLContent(fileOutputStream, arguments.html, arguments.options);
-        } catch (any e) {
-            logBox.error('PDF file generation failed', e);
-            throw(
-                type = 'PDFGenerator.ConversionException',
-                message = 'Failed to generate PDF file: #e.message#',
-                detail = e.detail
-            );
-        } finally {
-            try {
-                if (isObject(fileOutputStream)) {
-                    fileOutputStream.close();
-                }
-            } catch (any e) {
-                // Ignore cleanup errors
-            }
-        }
-    }
-
-    /**
      * Check if OpenPDF library is available and functional
      *
      * @return Boolean indicating availability
@@ -108,27 +74,10 @@ component singleton {
     /**
      * Get OpenPDF library version information
      *
-     * @return Struct with version details
+     * @return String with version details
      */
-    public struct function getVersionInfo() {
-        try {
-            var version = javaloader.create('org.openpdf.text.Document').getVersion();
-
-            return {
-                'library': 'OpenPDF',
-                'version': version,
-                'available': true,
-                'initialized': variables.initialized
-            };
-        } catch (any e) {
-            return {
-                'library': 'OpenPDF',
-                'version': 'Unknown',
-                'available': false,
-                'initialized': false,
-                'error': e.message
-            };
-        }
+    public string function getVersionInfo() {
+        return javaloader.create('org.openpdf.text.Document').getVersion();
     }
 
     // ===== PRIVATE METHODS =====
@@ -147,71 +96,6 @@ component singleton {
     }
 
     /**
-     * Create PDF document with specified options
-     */
-    private any function createPDFDocument(required PDFOptions options) {
-        // Get page size
-        var pageSize = getPageSize(arguments.options.getPageSize());
-
-        // Apply orientation
-        if (arguments.options.getOrientation() == 'landscape') {
-            pageSize = pageSize.rotate();
-        }
-
-        // Create document with page size
-        var document = javaloader.create('org.openpdf.text.Document').init(pageSize);
-
-        // Set margins
-        var marginTop = arguments.options.getMarginTop();
-        var marginBottom = arguments.options.getMarginBottom();
-        var marginLeft = arguments.options.getMarginLeft();
-        var marginRight = arguments.options.getMarginRight();
-        var marginUnit = arguments.options.getMarginUnit();
-
-        // Convert margins to points if needed
-        if (marginUnit == 'mm') {
-            marginTop = mmToPoints(marginTop);
-            marginBottom = mmToPoints(marginBottom);
-            marginLeft = mmToPoints(marginLeft);
-            marginRight = mmToPoints(marginRight);
-        } else if (marginUnit == 'in') {
-            marginTop = inToPoints(marginTop);
-            marginBottom = inToPoints(marginBottom);
-            marginLeft = inToPoints(marginLeft);
-            marginRight = inToPoints(marginRight);
-        }
-
-        document.setMargins(
-            marginLeft,
-            marginRight,
-            marginTop,
-            marginBottom
-        );
-
-        return document;
-    }
-
-    /**
-     * Get OpenPDF page size rectangle from string
-     */
-    private any function getPageSize(required string pageSize) {
-        switch (lCase(arguments.pageSize)) {
-            case 'a4':
-                return javaloader.create('org.openpdf.text.PageSize').A4;
-            case 'a3':
-                return javaloader.create('org.openpdf.text.PageSize').A3;
-            case 'a5':
-                return javaloader.create('org.openpdf.text.PageSize').A5;
-            case 'letter':
-                return javaloader.create('org.openpdf.text.PageSize').LETTER;
-            case 'legal':
-                return javaloader.create('org.openpdf.text.PageSize').LEGAL;
-            default:
-                return javaloader.create('org.openpdf.text.PageSize').A4;
-        }
-    }
-
-    /**
      * Parse HTML content and add to PDF document
      */
     private void function parseHTMLContent(required any outputStream, required string html, required PDFOptions options) {
@@ -225,18 +109,6 @@ component singleton {
         renderer.createPDF(arguments.outputStream);
     }
 
-    /**
-     * Configure header and footer handling
-     */
-    private void function configureHeaderFooter(required any writer, required PDFOptions options) {
-        // Note: This is a placeholder for header/footer implementation
-        // OpenPDF header/footer handling requires custom page event handlers
-        // Implementation would involve creating PdfPageEventHelper subclass
-
-        if (logBox.canDebug()) {
-            logBox.debug('Header/footer configuration requested - implementation pending');
-        }
-    }
 
     /**
      * Scan /fonts directory and embed fonts for better Unicode support
@@ -250,20 +122,6 @@ component singleton {
 				logBox.debug('Registered font with renderer for embedding: ' & fontPath);
 			}
 		}
-    }
-
-    /**
-     * Convert millimeters to points (1 mm = 2.834645669 points)
-     */
-    private numeric function mmToPoints(required numeric mm) {
-        return arguments.mm * 2.834645669;
-    }
-
-    /**
-     * Convert inches to points (1 inch = 72 points)
-     */
-    private numeric function inToPoints(required numeric inches) {
-        return arguments.inches * 72;
     }
 
 }

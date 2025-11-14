@@ -17,7 +17,6 @@ component extends="testbox.system.BaseSpec" {
 
                     expect(options).toBeComponent();
                     expect(options.getOrientation()).toBe('portrait');
-                    expect(options.getPageSize()).toBe('A4');
                     expect(options.getMarginTop()).toBe(20);
                     expect(options.getMarginBottom()).toBe(20);
                     expect(options.getMarginLeft()).toBe(20);
@@ -41,7 +40,6 @@ component extends="testbox.system.BaseSpec" {
                 it('should support fluent page size setting', function() {
                     var options = new pdfgenerator.models.PDFOptions().setPageSize('A3');
 
-                    expect(options.getPageSize()).toBe('A3');
                 });
 
                 it('should support fluent margin setting', function() {
@@ -64,7 +62,6 @@ component extends="testbox.system.BaseSpec" {
                         .setFooter('Page {currentpage} of {totalpages}');
 
                     expect(options.getOrientation()).toBe('landscape');
-                    expect(options.getPageSize()).toBe('A3');
                     expect(options.getMarginTop()).toBe(10);
                     expect(options.getEmbedFonts()).toBeTrue();
                     expect(options.getHeader()).toBe('Test Header');

@@ -37,17 +37,9 @@ component singleton {
             arguments.options = createDefaultPDFOptions();
         }
 
-        // Validate options
-        if (!arguments.options.isValid()) {
-            return result.setError(
-                'Invalid PDF options provided',
-                'PDFOptions validation failed: #arguments.options.toString()#'
-            );
-        }
-
         // Log operation start
         if (logBox.canDebug()) {
-            logBox.debug('Starting HTML to PDF binary conversion. Options: #arguments.options.toString()#');
+            logBox.debug('Starting HTML to PDF binary conversion.');
         }
 
         // Generate PDF as base64 string (OpenPDFWrapper now returns base64)
@@ -71,66 +63,6 @@ component singleton {
 
         return result;
     }
-
-    /**
-     * Convert HTML to PDF and save to file
-     *
-     * @html The HTML content to convert
-     * @options PDFOptions object with configuration (optional)
-     * @return PDFResult object with file path and metadata
-     
-    public PDFResult function htmlToPDFFile(required string html, PDFOptions options) {
-        var startTime = getTickCount();
-        var result = new pdfgenerator.models.PDFResult();
-
-        // Use provided options or create default
-        if (isNull(arguments.options)) {
-            arguments.options = createDefaultPDFOptions();
-        }
-
-        // Validate options
-        if (!arguments.options.isValid()) {
-            return result.setError(
-                'Invalid PDF options provided',
-                'PDFOptions validation failed: #arguments.options.toString()#'
-            );
-        }
-
-        // Generate output file path
-        var filePath = generateOutputFilePath(arguments.options);
-
-        // Log operation start
-        if (logBox.canDebug()) {
-            logBox.debug('Starting HTML to PDF file conversion. Target: #filePath# | Options: #arguments.options.toString()#');
-        }
-		
-        // Generate PDF file
-        openPDFWrapper.generatePDFFile(arguments.html, arguments.options, filePath);
-
-        // Calculate metrics
-        var generationTime = getTickCount() - startTime;
-        var fileSize = 0;
-
-        if (fileExists(filePath)) {
-            var fileInfo = getFileInfo(filePath);
-            fileSize = fileInfo.size;
-        }
-
-        // Build successful result
-        result
-            .setSuccess(true)
-            .setFilePath(filePath)
-            .setFileSize(fileSize)
-            .setGenerationTime(generationTime);
-
-        // Log success
-        if (logBox.canInfo()) {
-            logBox.info('PDF file generation completed successfully. ' & result.toString());
-        }
-
-        return result;
-    }
-		*/
 
     /**
      * Health check - verify PDF generation capability
@@ -170,19 +102,8 @@ component singleton {
         var options = new pdfgenerator.models.PDFOptions();
         var defaults = moduleSettings.defaultPDFOptions;
 
-        return options
-            .setOrientation(defaults.orientation)
-            .setPageSize(defaults.pageSize)
-            .setMargins(
-                top = defaults.marginTop,
-                bottom = defaults.marginBottom,
-                left = defaults.marginLeft,
-                right = defaults.marginRight,
-                unit = defaults.marginUnit
-            )
-            .setEmbedFonts(defaults.embedFonts)
-            .setHeader(defaults.header)
-            .setFooter(defaults.footer);
+		options.setEmbedFonts(defaults.embedFonts);
+        return options;
     }
 
     /**
